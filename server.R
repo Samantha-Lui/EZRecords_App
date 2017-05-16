@@ -30,6 +30,7 @@ shinyServer(function(input, output, session){ #start Server
     rvs$is_sampling_js <- TRUE # Checks whether an item is used in the production sampling
     rvs$err_js <- character(0) # Warnings for inputs during the item adding process
     rvs$err2_js <- character(0) # Warnings for inputs after the list of added items is confirmed
+    rvs$confirm_js <- character(0) # Confirmation of successful process
     
     inv <- readRDS("invoice_object.Rds") # The unique invoice object for a particular user
     
@@ -64,6 +65,7 @@ shinyServer(function(input, output, session){ #start Server
             rvs$subtotal_js <- amount(rvs$items_js)
             reset_all(c('category_js','model_js','descrp_js','quant_js','price_js','discount_js')) # Reset values of the fields in the app
             rvs$is_sampling_js <- rvs$is_sampling_js & (sampling_js()=='Yes')
+            rvs$confirm_js <- character(0)
             }
         }
     )
@@ -87,6 +89,7 @@ shinyServer(function(input, output, session){ #start Server
             rvs$err2_js <- validity_test
             }
         else{
+            rvs$confirm_js <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
             if(length(rvs$items_js@items)>0){
                 transaction <- new('product_transac',
                                    date = date_js(),
@@ -182,6 +185,7 @@ shinyServer(function(input, output, session){ #start Server
     
     output$error_js <- renderText(rvs$err_js) # Shows warnings about inputs for a single item to be added 
     output$error2_js <- renderText(rvs$err2_js) # Show warnings about inputs after all items have been added
+    output$confirm_js <- renderText(rvs$confirm_js)
     ### end J:Sale ###
 
     
@@ -192,6 +196,7 @@ shinyServer(function(input, output, session){ #start Server
     rvs$err_jp <- character(0)
     rvs$err2_jp <- character(0)
     rvs$err3_jp <- character(0)
+    rvs$confirm_jp <-character(0)
     rvs$duptab_jp <- data.frame()
     
     observe({
@@ -235,6 +240,7 @@ shinyServer(function(input, output, session){ #start Server
                             descrp=descrp_jp(),
                             stringsAsFactors = FALSE)
             rvs$purchase_jp <-rbind(df, rvs$purchase_jp, stringsAsFactors = FALSE)
+            rvs$confirm_jp <- character(0)
             }
         }
     )
@@ -255,6 +261,7 @@ shinyServer(function(input, output, session){ #start Server
             rvs$err2_jp <- validity_test
         }
         else{
+            rvs$confirm_jp <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
             if(length(rvs$items_jp@items)>0){
                 transaction <- new('product_transac',
                                    date = date_jp(),
@@ -346,6 +353,7 @@ shinyServer(function(input, output, session){ #start Server
     output$error_jp <- renderText(rvs$err_jp)
     output$error2_jp <- renderText(rvs$err2_jp)
     output$error3_jp <- renderText(rvs$err3_jp)
+    output$confirm_jp <- renderText(rvs$confirm_jp)
     output$dup_table_jp <- renderDataTable(rvs$duptab_jp)
     ### end J:Purchase ###
     
@@ -357,6 +365,7 @@ shinyServer(function(input, output, session){ #start Server
     rvs$err_jo <- character(0)
     rvs$err2_jo <- character(0)
     rvs$err3_jo <- character(0)
+    rvs$confirm_jo <- character(0)
     rvs$duptab_jo <- data.frame()
     
     observe({
@@ -396,7 +405,9 @@ shinyServer(function(input, output, session){ #start Server
                          model=model_jo(),  
                          category=category_jo(),
                          stringsAsFactors = FALSE)
-        rvs$purchase_jo <-rbind(df, rvs$purchase_jo, stringsAsFactors = FALSE)}
+        rvs$purchase_jo <-rbind(df, rvs$purchase_jo, stringsAsFactors = FALSE)
+        rvs$confirm_jo <- character(0)
+        }
         }
     )
     
@@ -438,6 +449,7 @@ shinyServer(function(input, output, session){ #start Server
                 rvs$subtotal_jo <- 0
                 rvs$curOData <- update_basic_struct(data=rvs$curOData, purchase=rvs$purchase_jo, "other_current.Rds")
                 rvs$purchase_jo <- data.frame()
+                rvs$confirm_jo <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
                 }
             }
         }
@@ -490,6 +502,7 @@ shinyServer(function(input, output, session){ #start Server
     output$error_jo <- renderText(rvs$err_jo)
     output$error2_jo <- renderText(rvs$err2_jo)
     output$error3_jo <- renderText(rvs$err3_jo)
+    output$confirm_jo <- renderText(rvs$confirm_jo)
     output$dup_table_jo <- renderDataTable(rvs$duptab_jo)
     ### end J:Other ###
 
@@ -677,5 +690,82 @@ shinyServer(function(input, output, session){ #start Server
     )
     ### end V:Stock ###
 
+    
+    
+    ### start C:Invoice ###
+    fname_ci <- reactive({input$fname_ci})
+    part1_ci  <- reactive({input$part1_ci})
+    part2_ci  <- reactive({input$part2_ci})
+    begin_ci <- reactive({input$begin_ci})
+    rvs$err_ci <- ''
+    observeEvent(input$finish_ci, {
+      ## Checks if the input of the parameter count_begins_at is valid
+      if(grepl('[^0-9]', begin_ci()) | !grepl('[0-9]', begin_ci()))
+        rvs$err_ci <- '<font size=\'4\', color=\"#C65555\"><b>\'Count begins at\' must contain only digits.</b></font>'
+      else{
+        customize_invoice(fname_ci(), part1_ci(), part2_ci(), begin_ci())
+        rvs$err_ci <- '<font size=\'4\', color=\"#42d162\"><b>Pattern for invoice number has been successfully created.</b></font>'
+      }
+    })
+    output$err_ci <- renderText(rvs$err_ci)
+    ### end C:Invoice ###
+    
+    
+    
+    ### start C:Default ###
+    choices_cd <- reactive({input$choices_cd})
+    rvs$err_cd <- ''
+    observeEvent(input$finish_cd, {
+      if(is.null(choices_cd()))
+        rvs$err_cd <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+      ## Updates current data to the default values
+      else{
+        results <- default_setting(choices_cd())
+        rvs$curData <- results[[1]]
+        rvs$curOData <- results[[2]]
+        rvs$logs_product <- results[[3]]
+        rvs$logs_other <- results[[4]]
+        rvs$err_cd <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been resetted to the default value.</b></font>"
+      }
+    })
+    output$err_cd <- renderText(rvs$err_cd)
+    ### end C:Default ###
+    
+    
+    
+    ### start C:Update ###
+    choices_cu <- reactive({input$choices_cu})
+    rvs$err_cu <- ''
+    observeEvent(input$finish_cu, {
+      if(is.null(choices_cu()))
+        rvs$err_cu <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+      else{
+        update_restore_point(choices_cu())
+        rvs$err_cu <- "<font size=\'4\', color=\"#42d162\"><b>Restore point for the selected file(s) has been updated.</b></font>"
+      }
+    })
+    output$err_cu <- renderText(rvs$err_cu)
+    ### end C:Update ###
+    
+    
+    
+    ### start C:Restore ###
+    choices_cr <- reactive({input$choices_cr})
+    rvs$err_cr <- ''
+    observeEvent(input$finish_cr, {
+      if(is.null(choices_cr()))
+        rvs$err_cr <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+      ## Updates current data to the restore values
+      else{
+        results <- restore_file(choices_cr())
+        rvs$curData <- results[[1]]
+        rvs$curOData <- results[[2]]
+        rvs$logs_product <- results[[3]]
+        rvs$logs_other <- results[[4]]
+        rvs$err_cr <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been restored.</b></font>"
+      }
+    })
+    output$err_cr <- renderText(rvs$err_cr)
+    ### end C:Restore ###
 }
 )#end Server

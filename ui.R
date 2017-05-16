@@ -112,12 +112,14 @@ ui = tagList(useShinyjs(),
                                                                  verbatimTextOutput("total_js", placeholder = TRUE)),
                                                           column(12,
                                                                  br(),
-                                                                 h4('The purchase listed above will be added to the database, and the system will start over.',
+                                                                 h4('The sale listed above will be added to the database, and the system will start over.',
                                                                     style = "color:blue"),
                                                                  br(),
                                                                  h4('Click the button below to confirm.', style = "color:blue"),
                                                                  br(),
-                                                                 actionButton("finish_js", label = "Confirm Purchase List"))
+                                                                 htmlOutput("confirm_js"),
+                                                                 br(),
+                                                                 actionButton("finish_js", label = "Confirm Sale List"))
                                                       )
                                              ),
                                              ## end J:Sale
@@ -230,6 +232,8 @@ ui = tagList(useShinyjs(),
                                                                  br(),
                                                                  h4('Click the button below to confirm.', style = "color:blue"),
                                                                  br(),
+                                                                 htmlOutput('confirm_jp'),
+                                                                 br(),
                                                                  actionButton("finish_jp", label = "Confirm Purchase List"))
                                                       )
                                              ),
@@ -331,6 +335,8 @@ ui = tagList(useShinyjs(),
                                                                  br(),
                                                                  h4('Click the button below to confirm.', style = "color:blue"),
                                                                  br(),
+                                                                 htmlOutput('confirm_jo'),
+                                                                 br(),
                                                                  actionButton("finish_jo", label = "Confirm Transaction"))
                                                       )
                                              ),
@@ -363,9 +369,6 @@ ui = tagList(useShinyjs(),
                                                                               selected = TRUE, inline = TRUE),
                                                                  br()
                                                           ),
-                                                          # column(12, 
-                                                          #        br(),
-                                                          #        htmlOutput("err_ju")),
                                                           column(12,
                                                                  br(),
                                                                  h4('The data from the uploaded file will be added to the database by the selected method above (append/overwrite).',
@@ -524,7 +527,96 @@ ui = tagList(useShinyjs(),
                                              
                                              
                                  )
-                        )
+                        ),
+                        
+                        
+                        
+                        tabPanel("Control Panel", 
+                                 tabsetPanel(type = "tabs", 
+                                             ## start C: Invoice
+                                             tabPanel("Invoice",
+                                                      h3('CONTROL PANEL: CUSTOMIZE INVOICE'),
+                                                      hr(),
+                                                      h4('File Name of Invoice Log'),
+                                                      helpText('The invoice log tracks the invoice numbers of their issue dates.',
+                                                               style = "color:blue"),
+                                                      column(12, textInput('fname_ci', 'File name', 
+                                                                       value = "", placeholder = TRUE),
+                                                             br()),
+                                                      h4('Customize Invoice Number'),
+                                                      helpText('The invoice number pattern consists of four parts:',
+                                                               style = "color:blue"),
+                                                      helpText('Part 1, last two digits of the year, part 2, and a string of digits at which the count begins',
+                                                               style = "color:blue"),
+                                                      helpText('Note: The count will be reset to the beginning count specified by the user at the beginning of each year.',
+                                                               style = "color:blue"),
+                                                      column(12, textInput('part1_ci', 'First part', 
+                                                                          value = "", placeholder = TRUE)),
+                                                      column(12, textInput('part2_ci', 'Second part', 
+                                                                 value = "", placeholder = TRUE)),
+                                                      column(12, textInput('begin_ci', 'Count begins at', 
+                                                                          value = "", placeholder = TRUE)),
+                                                      column(12, htmlOutput('err_ci'), br()),
+                                                      column(12, actionButton("finish_ci", label = "Create Invoice Number Pattern"))
+                                                      ),
+                                             
+                                             ## start C: Reset
+                                             tabPanel("Reset to Default",
+                                                      h3('CONTROL PANEL: RESET FILE TO THE DEFAULT VALUE'),
+                                                      hr(),
+                                                      h4("Select file(s)"),
+                                                      helpText('The content of the selected file(s) will be removed.',
+                                                               style = "color:blue"),
+                                                      helpText('Warning: The action cannot be reversed. Please make sure there is a backup.',
+                                                               style = "color:red"),
+                                                      column(12, checkboxGroupInput("choices_cd", label = '', 
+                                                                                    choices = list("Skeleton for sale and purchase ('current.Rds')" = 1, 
+                                                                                                   "Skeleton for other kinds of transactions ('other_current.Rds')" = 2, 
+                                                                                                   "Transaction records of sale and purchase ('product_logs_current.Rds')" = 3,
+                                                                                                   "Records of transaction other than sale and purchase ('other_logs_current.Rds')" = 4),
+                                                                                    width = '100%')
+                                                             ),
+                                                      column(12, htmlOutput('err_cd'), br()),
+                                                      column(12, actionButton("finish_cd", label = "Reset File(s) to Default Setting"))
+                                                      ),
+                                             
+                                             ## start C: Update
+                                             tabPanel("Update Restore Point",
+                                                      h3('CONTROL PANEL: UPDATE RESTORE POINT'),
+                                                      hr(),
+                                                      h4("Select file(s)"),
+                                                      helpText('The restore point(s) of the selected file(s) will be updated to the current state(s).',
+                                                               style = "color:blue"),
+                                                      column(12, checkboxGroupInput("choices_cu", label = '', 
+                                                                                    choices = list("Skeleton for sale and purchase ('current.Rds')" = 1, 
+                                                                                                   "Skeleton for other kinds of transactions ('other_current.Rds')" = 2, 
+                                                                                                   "Transaction records of sale and purchase ('product_logs_current.Rds')" = 3,
+                                                                                                   "Records of transaction other than sale and purchase ('other_logs_current.Rds')" = 4),
+                                                                                    width = '100%')
+                                                      ),
+                                                      column(12, htmlOutput('err_cu'), br()),
+                                                      column(12, actionButton("finish_cu", label = "Update Restore Point(s) for the Selected File(s)"))),
+                                             
+                                             ## start C: Restore
+                                             tabPanel("Restore file",
+                                                      h3('CONTROL PANEL: RESTORE FILE'),
+                                                      hr(),
+                                                      h4("Select file(s)"),
+                                                      helpText('The selected file(s) with be restored to the previous state(s).',
+                                                               style = "color:blue"),
+                                                      helpText('Warning: The action cannot be reversed.',
+                                                               style = "color:red"),
+                                                      column(12, checkboxGroupInput("choices_cr", label = '', 
+                                                                                    choices = list("Skeleton for sale and purchase ('current.Rds')" = 1, 
+                                                                                                   "Skeleton for other kinds of transactions ('other_current.Rds')" = 2, 
+                                                                                                   "Transaction records of sale and purchase ('product_logs_current.Rds')" = 3,
+                                                                                                   "Records of transaction other than sale and purchase ('other_logs_current.Rds')" = 4),
+                                                                                    width = '100%')
+                                                      ),
+                                                      column(12, htmlOutput('err_cr'), br()),
+                                                      column(12, actionButton("finish_cr", label = "Restore Selected File(s)")))
+                                             )
+                                 )
                         
                         
              ) # end navbarPage 1
