@@ -598,7 +598,7 @@ ui = tagList(useShinyjs(),
                                                       column(12, actionButton("finish_cu", label = "Update Restore Point(s) for the Selected File(s)"))),
                                              
                                              ## start C: Restore
-                                             tabPanel("Restore file",
+                                             tabPanel("Restore File",
                                                       h3('CONTROL PANEL: RESTORE FILE'),
                                                       hr(),
                                                       h4("Select file(s)"),
@@ -614,10 +614,16 @@ ui = tagList(useShinyjs(),
                                                                                     width = '100%')
                                                       ),
                                                       column(12, htmlOutput('err_cr'), br()),
-                                                      column(12, actionButton("finish_cr", label = "Restore Selected File(s)")))
+                                                      column(12, actionButton("finish_cr", label = "Restore Selected File(s)"))),
+                                             
+                                             ## start C: System Log
+                                             tabPanel("System Log",
+                                                      h3('CONTROL PANEL: SYSTEM LOG'),
+                                                      hr(),
+                                                      column(12, dataTableOutput('table_csc'))
                                              )
                                  )
                         
-                        
+                        )
              ) # end navbarPage 1
 ) # end ui
