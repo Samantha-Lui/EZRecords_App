@@ -44,3 +44,7 @@ saveRDS(data.frame(), file=paste(fname, '.Rds', sep=''))
 # inpect
 w <- readRDS("m1314_inovice.Rds"); w
 readRDS("invoice_object.Rds")
+
+
+saveRDS(data.frame(), file='system_log.Rds')
+readRDS('system_log.Rds')

@@ -693,6 +693,9 @@ shinyServer(function(input, output, session){ #start Server
     
     
     ### start C:Invoice ###
+    ## Shared across all sections in the Contrl Panel
+    rvs$system_log <- readRDS('system_log.Rds')
+    
     fname_ci <- reactive({input$fname_ci})
     part1_ci  <- reactive({input$part1_ci})
     part2_ci  <- reactive({input$part2_ci})
@@ -705,7 +708,7 @@ shinyServer(function(input, output, session){ #start Server
       else{
         customize_invoice(fname_ci(), part1_ci(), part2_ci(), begin_ci())
         rvs$err_ci <- '<font size=\'4\', color=\"#42d162\"><b>Pattern for invoice number has been successfully created.</b></font>'
-        system_log(5, 'Create', fname_ci())
+        rvs$system_log <- system_log(5, 'Create', fname_ci())
       }
     })
     output$err_ci <- renderText(rvs$err_ci)
@@ -727,7 +730,7 @@ shinyServer(function(input, output, session){ #start Server
         rvs$logs_product <- results[[3]]
         rvs$logs_other <- results[[4]]
         rvs$err_cd <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been resetted to the default value.</b></font>"
-        system_log(choices_cd, 'Set to default')
+        rvs$system_log <- system_log(choices_cd(), 'Set to default')
       }
     })
     output$err_cd <- renderText(rvs$err_cd)
@@ -744,7 +747,7 @@ shinyServer(function(input, output, session){ #start Server
       else{
         update_restore_point(choices_cu())
         rvs$err_cu <- "<font size=\'4\', color=\"#42d162\"><b>Restore point for the selected file(s) has been updated.</b></font>"
-        system_log(choices_cu, 'Update restore point')
+        rvs$system_log <- system_log(choices_cu(), 'Update restore point')
       }
     })
     output$err_cu <- renderText(rvs$err_cu)
@@ -766,7 +769,7 @@ shinyServer(function(input, output, session){ #start Server
         rvs$logs_product <- results[[3]]
         rvs$logs_other <- results[[4]]
         rvs$err_cr <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been restored.</b></font>"
-        system_log(choices_cr, 'Restore')
+        rvs$system_log <- system_log(choices_cr(), 'Restore')
       }
     })
     output$err_cr <- renderText(rvs$err_cr)
@@ -775,7 +778,7 @@ shinyServer(function(input, output, session){ #start Server
     
     
     ### start C:System log ###
-    output$table_csc <- renderDataTable(readRDS('System_log.Rds'))
+    output$table_csc <- renderDataTable(rvs$system_log)
     ### end C:System log ###
 }
 )#end Server
