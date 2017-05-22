@@ -32,8 +32,6 @@ shinyServer(function(input, output, session){ #start Server
     rvs$err2_js <- character(0) # Warnings for inputs after the list of added items is confirmed
     rvs$confirm_js <- character(0) # Confirmation of successful process
     
-    inv <- readRDS("invoice_object.Rds") # The unique invoice object for a particular user
-    
     observeEvent(input$add_js, {
         ## Check for validity of inputs during the item adding process
         ## Error message(s) will be generated and displayed on the app if there is an error;
@@ -90,6 +88,7 @@ shinyServer(function(input, output, session){ #start Server
             }
         else{
             rvs$confirm_js <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
+            inv <- readRDS("invoice_object.Rds") # The unique invoice object for a particular user
             if(length(rvs$items_js@items)>0){
                 transaction <- new('product_transac',
                                    date = date_js(),
