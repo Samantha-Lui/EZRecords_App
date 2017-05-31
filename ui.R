@@ -623,7 +623,35 @@ ui = tagList(useShinyjs(),
                                                       column(12, dataTableOutput('table_csc'))
                                              )
                                  )
+                        ),
                         
+                        ## start A: About
+                        tabPanel("About",
+                                 h3('About EZRecords App'),
+                                 hr(),
+                                 column(12, 
+                                        tags$b('Version'),
+                                        h5("v1.2 (May 31, 2017)"),
+                                        br(),
+                                        tags$b('Description'),
+                                        h5('EZRecords App is an application designed for retail/reselling business for 
+                                            bookkeeping and management of stock. Upon data entry of a transaction (sale, 
+                                            purchase of the materials, other expenses, etc), the status of stock is updated, 
+                                            and the record of the transaction will be ready to view or use for future calculations 
+                                            and analyses.'),
+                                        h5('This application was built on R(3.3.2) and required public-licensed packages shiny, 
+                                           shinyjs, dplyr, and tidyr and private package EZRecords.'),
+                                        br(),
+                                        tags$b('Learn more about the EZRecords App on Github'),
+                                        h5(a('https://github.com/Samantha-Lui/EZRecords_App', href="https://github.com/Samantha-Lui/EZRecords_App")),
+                                        br(),
+                                        tags$b('Author'),
+                                        h5(a("Samantha Lui (https://ca.linkedin.com/in/samluimath)",
+                                             href="https://ca.linkedin.com/in/samluimath")),
+                                        br(),
+                                        tags$b('Contact'),
+                                        h5(a("sluimathematics2@gmail.com"), href ="mailto:sluimathematics2@gmail.com")
+                                        )
                         )
              ) # end navbarPage 1
 ) # end ui
