@@ -77,3 +77,4 @@ Please visit https://samantheluidatascience.shinyapps.io/EZRecords_App_Demo/ for
 
 
 ## Related work
+The private package, [EZRecords](https://github.com/Samantha-Lui/EZRecords), which supports the underlying structure of the application.
