@@ -21,8 +21,8 @@ shinyServer(function(input, output, session){ #start Server
     ## A combination of the log for the products and the log for the others
     ## Reactive to rvs$logs_product and rvs$logs_other
     journal_combined <- reactive(join(rvs$logs_product, rvs$logs_other))
-
-        
+    
+    
     
     ### start J:Sale ###
     ## Reactive values shared across the Journal entry for Sale section
@@ -64,15 +64,15 @@ shinyServer(function(input, output, session){ #start Server
             reset_all(c('category_js','model_js','descrp_js','quant_js','price_js','discount_js')) # Reset values of the fields in the app
             rvs$is_sampling_js <- rvs$is_sampling_js & (sampling_js()=='Yes')
             rvs$confirm_js <- character(0)
-            }
         }
+    }
     )
     
     ## Removes the most recently added item on the list
     observeEvent(input$undo_js, {
         rvs$items_js <- remove_last(rvs$items_js)
         rvs$subtotal_js <- amount(rvs$items_js)
-        }
+    }
     )
     
     ## Confirmed by the user,
@@ -85,7 +85,7 @@ shinyServer(function(input, output, session){ #start Server
         validity_test <- check_validity(tests)
         if(validity_test != 'Pass'){
             rvs$err2_js <- validity_test
-            }
+        }
         else{
             rvs$confirm_js <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
             inv <- readRDS("invoice_object.Rds") # The unique invoice object for a particular user
@@ -111,9 +111,9 @@ shinyServer(function(input, output, session){ #start Server
                 reset_all(c('date_js','supplier_js','order_js','sample_js','sampling_js','shipment_js', 'tax_js'))
                 rvs$subtotal_js <- 0
                 rvs$is_sampling_js <- FALSE
-                }
             }
         }
+    }
     )
     
     ## Retrieves the relevant information of the item with the given supplier(s) and model number
@@ -128,7 +128,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'mcat_js', 
                              choices = mcat_choice(rvs$curData))
-        }
+    }
     )
     mcat_js <- reactive({input$mcat_js})
     
@@ -136,7 +136,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'category_js', 
                              choices = cat_choice(data=rvs$curData, mcat=mcat_js(), type='sale'))
-        }
+    }
     )
     category_js <- reactive({input$category_js})
     
@@ -144,7 +144,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'model_js', 
                              choices = model_choice(data=rvs$curData, cat=category_js(), type='sale'))
-        }
+    }
     )
     model_js <- reactive({input$model_js})
     
@@ -152,7 +152,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'descrp_js', 
                              choices = descrp_choice(rvs$curData, model=model_js(), cat=category_js()))
-        }
+    }
     )
     descrp_js <- reactive({input$descrp_js})
     
@@ -186,7 +186,7 @@ shinyServer(function(input, output, session){ #start Server
     output$error2_js <- renderText(rvs$err2_js) # Show warnings about inputs after all items have been added
     output$confirm_js <- renderText(rvs$confirm_js)
     ### end J:Sale ###
-
+    
     
     
     ### start J:Purchase ###
@@ -202,7 +202,7 @@ shinyServer(function(input, output, session){ #start Server
         don <- show_duplicate(rvs$logs_product, date=as.character(date_jp()), orn=order_jp(), sup=supplier_jp())
         rvs$err3_jp <- don[[1]]
         rvs$duptab_jp <- don[[2]]
-        }
+    }
     )
     
     observeEvent(input$add_jp, {
@@ -220,35 +220,35 @@ shinyServer(function(input, output, session){ #start Server
         }
         else{
             newItem = new('single_item',
-                      category=category_jp(), 
-                      descrp=descrp_jp(), 
-                      model=model_jp(), 
-                      quant=quant_jp(),
-                      price=price_jp(),
-                      discount=discount_jp(),
-                      sample='No',
-                      sampling='No')
+                          category=category_jp(), 
+                          descrp=descrp_jp(), 
+                          model=model_jp(), 
+                          quant=quant_jp(),
+                          price=price_jp(),
+                          discount=discount_jp(),
+                          sample='No',
+                          sampling='No')
             newItem@amount <- amount(newItem)
             rvs$items_jp <- add(rvs$items_jp, newItem)
             rvs$subtotal_jp <- amount(rvs$items_jp)
             reset_all(c('category_jp','model_jp','descrp_jp','quant_jp','price_jp','discount_jp'))
             df <- data.frame(supplier=supplier_jp(), 
-                            model=model_jp(),  
-                            mcat=mcat_jp(),            
-                            category=category_jp(),
-                            descrp=descrp_jp(),
-                            stringsAsFactors = FALSE)
+                             model=model_jp(),  
+                             mcat=mcat_jp(),            
+                             category=category_jp(),
+                             descrp=descrp_jp(),
+                             stringsAsFactors = FALSE)
             rvs$purchase_jp <-rbind(df, rvs$purchase_jp, stringsAsFactors = FALSE)
             rvs$confirm_jp <- character(0)
-            }
         }
+    }
     )
     
     observeEvent(input$undo_jp, {
         rvs$items_jp <- remove_last(rvs$items_jp)
         rvs$subtotal_jp <- amount(rvs$items_jp)
         rvs$purchase_jp <- rvs$purchase_jp[-1, ]
-        }
+    }
     )
     
     observeEvent(input$finish_jp, {
@@ -283,9 +283,9 @@ shinyServer(function(input, output, session){ #start Server
                 rvs$subtotal_jp <- 0
                 rvs$curData <- update_basic_struct(data=rvs$curData, purchase=rvs$purchase_jp, "current.Rds")
                 rvs$purchase_jp <- data.frame()
-                }
             }
         }
+    }
     )
     
     revSearch_jp <- reactive({input$revSearch_jp})
@@ -296,7 +296,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'supplier_jp', 
                              choices = supplier_choice(rvs$curData, 'supplier'))
-        }
+    }
     )
     supplier_jp <- reactive({input$supplier_jp})
     
@@ -305,28 +305,28 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'mcat_jp', 
                              choices = mcat_choice(rvs$curData, supplier_jp()))
-        }
+    }
     )
     mcat_jp <- reactive({input$mcat_jp})
     
     observe({
         updateSelectizeInput(session, 'category_jp', 
                              choices = cat_choice(data=rvs$curData, supplier=supplier_jp(), mcat=mcat_jp(), type='purchase'))
-        }
+    }
     )
     category_jp <- reactive({input$category_jp})
     
     observe({
         updateSelectizeInput(session, 'model_jp', 
                              choices = model_choice(data=rvs$curData, cat=category_jp(), supplier=supplier_jp(), type='purchase'))
-        }
+    }
     )
     model_jp <- reactive({input$model_jp})
     
     observe({
         updateSelectizeInput(session, 'descrp_jp', 
                              choices = descrp_choice(data=rvs$curData, model=model_jp(), cat=category_jp()))
-        }
+    }
     )
     descrp_jp <- reactive({input$descrp_jp})
     
@@ -371,7 +371,7 @@ shinyServer(function(input, output, session){ #start Server
         don <- show_duplicate(rvs$logs_other, date=as.character(date_jo()), orn=order_jo(), sup=supplier_jo())
         rvs$err3_jo <- don[[1]]
         rvs$duptab_jo <- don[[2]]
-        }
+    }
     )
     
     observeEvent(input$add_jo, {
@@ -386,35 +386,35 @@ shinyServer(function(input, output, session){ #start Server
         if(validity_test != 'Pass'){
             rvs$err_jo <- validity_test
         }
-       else{ 
-        newItem = new('single_item',
-                      category= category_jo(), 
-                      descrp=descrp_jo(), 
-                      model=model_jo(), 
-                      quant=quant_jo(),
-                      price=price_jo(),
-                      discount='None',
-                      sample='No',
-                      sampling='No')
-        newItem@amount <- amount(newItem)
-        rvs$items_jo <- add(rvs$items_jo, newItem)
-        rvs$subtotal_jo <- amount(rvs$items_jo)
-        reset_all(c('category_jo','model_jo','descrp_jo','quant_jo','price_jo'))
-        df <- data.frame(supplier_customer=supplier_jo(), 
-                         model=model_jo(),  
-                         category=category_jo(),
-                         stringsAsFactors = FALSE)
-        rvs$purchase_jo <-rbind(df, rvs$purchase_jo, stringsAsFactors = FALSE)
-        rvs$confirm_jo <- character(0)
+        else{ 
+            newItem = new('single_item',
+                          category= category_jo(), 
+                          descrp=descrp_jo(), 
+                          model=model_jo(), 
+                          quant=quant_jo(),
+                          price=price_jo(),
+                          discount='None',
+                          sample='No',
+                          sampling='No')
+            newItem@amount <- amount(newItem)
+            rvs$items_jo <- add(rvs$items_jo, newItem)
+            rvs$subtotal_jo <- amount(rvs$items_jo)
+            reset_all(c('category_jo','model_jo','descrp_jo','quant_jo','price_jo'))
+            df <- data.frame(supplier_customer=supplier_jo(), 
+                             model=model_jo(),  
+                             category=category_jo(),
+                             stringsAsFactors = FALSE)
+            rvs$purchase_jo <-rbind(df, rvs$purchase_jo, stringsAsFactors = FALSE)
+            rvs$confirm_jo <- character(0)
         }
-        }
+    }
     )
     
     observeEvent(input$undo_jo, {
         rvs$items_jo <- remove_last(rvs$items_jo)
         rvs$subtotal_jo <- amount(rvs$items_jo)
         rvs$purchase_jo <- rvs$purchase_jo[-1, ]
-        }
+    }
     )
     
     observeEvent(input$finish_jo, {
@@ -449,9 +449,9 @@ shinyServer(function(input, output, session){ #start Server
                 rvs$curOData <- update_basic_struct(data=rvs$curOData, purchase=rvs$purchase_jo, "other_current.Rds")
                 rvs$purchase_jo <- data.frame()
                 rvs$confirm_jo <- '<font size=\'4\', color=\"#42d162\"><b>Transaction has been successfully added to the database.</b></font>'
-                }
             }
         }
+    }
     )
     
     date_jo <- reactive({input$date_jo})
@@ -459,14 +459,14 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'supplier_jo', 
                              choices = supplier_choice(rvs$curOData, 'supplier_customer'))
-        }
+    }
     )
     supplier_jo <- reactive({input$supplier_jo})
     
     observe({
         updateSelectizeInput(session, 'category_jo', 
                              choices = cat_choice(data=rvs$curOData, supplier=supplier_jo(), mcat='', type='other'))
-        }
+    }
     )
     category_jo <- reactive({input$category_jo})
     
@@ -475,7 +475,7 @@ shinyServer(function(input, output, session){ #start Server
     observe({
         updateSelectizeInput(session, 'model_jo', 
                              choices = model_choice(data=rvs$curOData, cat=category_jo(), supplier=supplier_jo(), type='other'))
-        }
+    }
     )
     model_jo <- reactive({input$model_jo})
     
@@ -504,7 +504,7 @@ shinyServer(function(input, output, session){ #start Server
     output$confirm_jo <- renderText(rvs$confirm_jo)
     output$dup_table_jo <- renderDataTable(rvs$duptab_jo)
     ### end J:Other ###
-
+    
     
     
     ### start J: Upload ###
@@ -522,17 +522,17 @@ shinyServer(function(input, output, session){ #start Server
     # Processes content of the uploaded file upon user's confirmation
     observeEvent(input$finish_ju, {
         rvs$results_ju <- process_upload_data(data = upload_table_ju(),
-                                           append = append_ju(),
-                                           # ex_* are updated data to be returned for current session 
-                                           ex_prod_skel = rvs$curData,
-                                           ex_prod_log = rvs$logs_product,
-                                           ex_other_skel = rvs$curOData,
-                                           ex_other_log = rvs$logs_other,
-                                           # Updated data are written in the *_fname files respectively
-                                           xps_fname = "current.Rds",
-                                           xpl_fname = "product_logs_current.Rds",
-                                           xos_fname = "other_current.Rds",
-                                           xol_fname = "other_logs_current.Rds")
+                                              append = append_ju(),
+                                              # ex_* are updated data to be returned for current session 
+                                              ex_prod_skel = rvs$curData,
+                                              ex_prod_log = rvs$logs_product,
+                                              ex_other_skel = rvs$curOData,
+                                              ex_other_log = rvs$logs_other,
+                                              # Updated data are written in the *_fname files respectively
+                                              xps_fname = "current.Rds",
+                                              xpl_fname = "product_logs_current.Rds",
+                                              xos_fname = "other_current.Rds",
+                                              xol_fname = "other_logs_current.Rds")
         # Updates data for current session
         rvs$curData <- rvs$results_ju[[1]]
         rvs$logs_product <- rvs$results_ju[[2]]
@@ -542,9 +542,11 @@ shinyServer(function(input, output, session){ #start Server
         # or else a notification of the successful process 
         rvs$err_ju <- rvs$results_ju[[5]]
         reset_all('append_ju')
-        }
+        reset('upload_ju')
+    }
     )
     # Displays warning/error message if there is one
+    observeEvent(input$upload_ju, {rvs$err_ju <- character(0)})
     output$err_ju <- renderText(rvs$err_ju)
     ### end J: Upload ###
     
@@ -560,7 +562,7 @@ shinyServer(function(input, output, session){ #start Server
         updateSelectizeInput(session, 'category_vj',
                              choices = c('All', view_category(pjc(), dates_vj())),
                              selected = 'All')
-        }
+    }
     )
     category_vj <- reactive({input$category_vj})
     
@@ -568,12 +570,12 @@ shinyServer(function(input, output, session){ #start Server
         updateSelectizeInput(session, 'supplier_vj',
                              choices = c('All', view_supplier_customer(pjc(), category_vj(),dates_vj())),
                              selected = 'All')
-        }
+    }
     )
     supplier_vj <- reactive({input$supplier_vj})
-
+    
     also_show_vj <- reactive({input$also_show_vj})
-
+    
     output$select_order_vj <- renderUI({selectInput('select_order_vj', 'Order Columns by',
                                                     choices = c('date', 'transac', 'category', 'descrp', 'supplier_customer', 'value', 'total', 
                                                                 also_show_vj()),
@@ -581,14 +583,14 @@ shinyServer(function(input, output, session){ #start Server
                                                     selected = c('date', 'transac', 'category', 'descrp', 'supplier_customer', 'value', 'total'),
                                                     width = '80%')})
     select_order_vj <- reactive({input$select_order_vj})
-
+    
     view_table_vj <- reactive(showViewTable(pjc(), 
                                             dates_vj(), category_vj(), supplier_vj(),
                                             c(select_order_vj(),
                                               setdiff(also_show_vj(), select_order_vj()))))
-
+    
     output$tempTable_vj <- renderDataTable(view_table_vj())
-
+    
     output$download_vj <- downloadHandler(
         filename = function() {
             file_name('Journal_Entries ', dates_vj())
@@ -600,7 +602,7 @@ shinyServer(function(input, output, session){ #start Server
         }
     )
     ### end V:Journal ###
-
+    
     
     
     ### start V:Incomes/Spendings ###
@@ -612,7 +614,7 @@ shinyServer(function(input, output, session){ #start Server
         updateSelectizeInput(session, 'category_vis',
                              choices = c('All', view_category(info_jc(), dates_vis())),
                              selected = 'All')
-        }
+    }
     )
     category_vis <- reactive({input$category_vis})
     
@@ -620,7 +622,7 @@ shinyServer(function(input, output, session){ #start Server
         updateSelectizeInput(session, 'model_vis',
                              choices = c('All', view_model(info_jc(), category_vis(), dates_vis())),
                              selected = 'All')
-        }
+    }
     )
     model_vis <- reactive({input$model_vis})
     
@@ -644,9 +646,9 @@ shinyServer(function(input, output, session){ #start Server
     )
     ### end V:Incomes/Spendings ###
     
-
-
-
+    
+    
+    
     ### V:Stock ###
     pl <- reactive(rvs$logs_product)
     
@@ -656,12 +658,12 @@ shinyServer(function(input, output, session){ #start Server
         updateSelectizeInput(session, 'category_vs',
                              choices = category_stock(pl(), dates_vs()),
                              selected = 'All')
-        }
+    }
     )
     category_vs <- reactive(input$category_vs)
-
+    
     stock_table_vs <- reactive(stockTable_stock(pl(), dates_vs(), category_vs()))
-
+    
     output$stock_vs <- renderDataTable(stock_table_vs()[[2]])
     
     output$logs_vs <- renderDataTable(stock_table_vs()[[1]])
@@ -688,7 +690,7 @@ shinyServer(function(input, output, session){ #start Server
         }
     )
     ### end V:Stock ###
-
+    
     
     
     ### start C:Invoice ###
@@ -701,14 +703,14 @@ shinyServer(function(input, output, session){ #start Server
     begin_ci <- reactive({input$begin_ci})
     rvs$err_ci <- ''
     observeEvent(input$finish_ci, {
-      ## Checks if the input of the parameter count_begins_at is valid
-      if(grepl('[^0-9]', begin_ci()) | !grepl('[0-9]', begin_ci()))
-        rvs$err_ci <- '<font size=\'4\', color=\"#C65555\"><b>\'Count begins at\' must contain only digits.</b></font>'
-      else{
-        customize_invoice(fname_ci(), part1_ci(), part2_ci(), begin_ci())
-        rvs$err_ci <- '<font size=\'4\', color=\"#42d162\"><b>Pattern for invoice number has been successfully created.</b></font>'
-        rvs$system_log <- system_log(5, 'Create', fname_ci())
-      }
+        ## Checks if the input of the parameter count_begins_at is valid
+        if(grepl('[^0-9]', begin_ci()) | !grepl('[0-9]', begin_ci()))
+            rvs$err_ci <- '<font size=\'4\', color=\"#C65555\"><b>\'Count begins at\' must contain only digits.</b></font>'
+        else{
+            customize_invoice(fname_ci(), part1_ci(), part2_ci(), begin_ci())
+            rvs$err_ci <- '<font size=\'4\', color=\"#42d162\"><b>Pattern for invoice number has been successfully created.</b></font>'
+            rvs$system_log <- system_log(5, 'Create', fname_ci())
+        }
     })
     output$err_ci <- renderText(rvs$err_ci)
     ### end C:Invoice ###
@@ -719,18 +721,18 @@ shinyServer(function(input, output, session){ #start Server
     choices_cd <- reactive({input$choices_cd})
     rvs$err_cd <- ''
     observeEvent(input$finish_cd, {
-      if(is.null(choices_cd()))
-        rvs$err_cd <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
-      ## Updates current data to the default values
-      else{
-        results <- default_setting(choices_cd())
-        rvs$curData <- results[[1]]
-        rvs$curOData <- results[[2]]
-        rvs$logs_product <- results[[3]]
-        rvs$logs_other <- results[[4]]
-        rvs$err_cd <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been resetted to the default value.</b></font>"
-        rvs$system_log <- system_log(choices_cd(), 'Set to default')
-      }
+        if(is.null(choices_cd()))
+            rvs$err_cd <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+        ## Updates current data to the default values
+        else{
+            results <- default_setting(choices_cd())
+            rvs$curData <- results[[1]]
+            rvs$curOData <- results[[2]]
+            rvs$logs_product <- results[[3]]
+            rvs$logs_other <- results[[4]]
+            rvs$err_cd <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been resetted to the default value.</b></font>"
+            rvs$system_log <- system_log(choices_cd(), 'Set to default')
+        }
     })
     output$err_cd <- renderText(rvs$err_cd)
     ### end C:Default ###
@@ -741,13 +743,13 @@ shinyServer(function(input, output, session){ #start Server
     choices_cu <- reactive({input$choices_cu})
     rvs$err_cu <- ''
     observeEvent(input$finish_cu, {
-      if(is.null(choices_cu()))
-        rvs$err_cu <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
-      else{
-        update_restore_point(choices_cu())
-        rvs$err_cu <- "<font size=\'4\', color=\"#42d162\"><b>Restore point for the selected file(s) has been updated.</b></font>"
-        rvs$system_log <- system_log(choices_cu(), 'Update restore point')
-      }
+        if(is.null(choices_cu()))
+            rvs$err_cu <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+        else{
+            update_restore_point(choices_cu())
+            rvs$err_cu <- "<font size=\'4\', color=\"#42d162\"><b>Restore point for the selected file(s) has been updated.</b></font>"
+            rvs$system_log <- system_log(choices_cu(), 'Update restore point')
+        }
     })
     output$err_cu <- renderText(rvs$err_cu)
     ### end C:Update ###
@@ -758,18 +760,18 @@ shinyServer(function(input, output, session){ #start Server
     choices_cr <- reactive({input$choices_cr})
     rvs$err_cr <- ''
     observeEvent(input$finish_cr, {
-      if(is.null(choices_cr()))
-        rvs$err_cr <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
-      ## Updates current data to the restore values
-      else{
-        results <- restore_file(choices_cr())
-        rvs$curData <- results[[1]]
-        rvs$curOData <- results[[2]]
-        rvs$logs_product <- results[[3]]
-        rvs$logs_other <- results[[4]]
-        rvs$err_cr <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been restored.</b></font>"
-        rvs$system_log <- system_log(choices_cr(), 'Restore')
-      }
+        if(is.null(choices_cr()))
+            rvs$err_cr <- '<font size=\'4\', color=\"#C65555\"><b>Please select a file.</b></font>'
+        ## Updates current data to the restore values
+        else{
+            results <- restore_file(choices_cr())
+            rvs$curData <- results[[1]]
+            rvs$curOData <- results[[2]]
+            rvs$logs_product <- results[[3]]
+            rvs$logs_other <- results[[4]]
+            rvs$err_cr <- "<font size=\'4\', color=\"#42d162\"><b>Selected file(s) has been restored.</b></font>"
+            rvs$system_log <- system_log(choices_cr(), 'Restore')
+        }
     })
     output$err_cr <- renderText(rvs$err_cr)
     ### end C:Restore ###
