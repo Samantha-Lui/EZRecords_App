@@ -1,0 +1,74 @@
+"date","category","model","descrp","supplier_customer","order_no","tax","shipment","transac","mcat","discount","sample","sampling","quant","price"
+"2017-01-03","dues & subscriptions","artwork modification software","Photoshop","Adobe","784217764",0,0,"other","","None","no","no",1,29.99
+"2017-01-03","dues & subscriptions","artwork modification software","Photoshop","Adobe","777058480",0,0,"other","","None","no","no",1,29.99
+"2016-12-03","dues & subscriptions","artwork modification software","Photoshop","Adobe","763415821",0,0,"other","","None","no","no",1,9.99
+"2016-12-03","dues & subscriptions","artwork modification software","Photoshop","Adobe","763415336",0,0,"other","","None","no","no",1,3.1
+"2016-11-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","758648257",0,0,"other","","None","no","no",1,29.99
+"2016-10-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","752040427",0,0,"other","","None","no","no",1,9.99
+"2016-09-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","745629220",0,0,"other","","None","no","no",1,9.99
+"2016-08-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","739367376",0,0,"other","","None","no","no",1,9.99
+"2016-07-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","727608176",0,0,"other","","None","no","no",1,9.99
+"2016-06-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","733375621",0,0,"other","","None","no","no",1,9.99
+"2016-05-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","721865541",0,0,"other","","None","no","no",1,9.99
+"2016-04-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","716301858",0,0,"other","","None","no","no",1,9.99
+"2016-03-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","710922502",0,0,"other","","None","no","no",1,9.99
+"2016-02-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","705740303",0,0,"other","","None","no","no",1,9.99
+"2016-01-13","dues & subscriptions","artwork modification software","Photoshop","Adobe","700688178",0,0,"other","","None","no","no",1,9.99
+"2017-03-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,59.86
+"2017-02-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,59.86
+"2017-01-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,59.86
+"2016-12-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,60.96
+"2016-11-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.71
+"2016-10-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.71
+"2016-09-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.52
+"2016-08-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.52
+"2016-07-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.52
+"2016-06-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.52
+"2016-05-03","utilities","communication","Telephone","Ooma","",0,0,"other","","None","no","no",1,49.52
+"2016-04-01","equipments","computer","computer parts","Amazon","113-6379492-9154613",51.03,0,"other","","None","no","no",1,491.02
+"2016-03-29","equipments","computer","mother board, cpu","Amazon","113-9784243-9136209",31.5,0,"other","","None","no","no",1,723.88
+"2016-03-29","equipments","computer","computer parts","Amazon","113-5032577-6549000",8.75,0,"other","","None","no","no",1,338.54
+"2016-04-01","equipment-compute","data maintenance ","two year data recovery plan","Amazon","113-3283031-4054608",0,0,"other","","None","no","no",1,9.9
+"2017-03-26","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,220.26
+"2017-02-24","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,282.33
+"2017-01-24","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,330.46
+"2016-12-23","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,310.42
+"2016-11-23","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,185.08
+"2016-10-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,281.95
+"2016-09-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,325.23
+"2016-08-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,348.37
+"2016-07-26","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,409.65
+"2016-06-24","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,249.5
+"2016-05-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,324.23
+"2016-04-26","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,340.78
+"2016-03-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,247.65
+"2016-02-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,265.18
+"2016-01-25","utilities","electricity","Electricity","PGE","",0,0,"other","","None","no","no",1,285.38
+"2016-10-10","equipments","heat press machine","ST-420: Heat press machine, ST-4050A: Heat press machine","Supplier C","SMTE-K161010",0,0,"other","","None","no","no",1,1000
+"2016-10-03","equipments","printer","Sublimation printer and blanks","Supplier A","182960",0,105.3,"other","","None","no","no",1,2388.4
+"2016-10-03","equipments","printer","811SGSYS: Virtuoso SG800 11x17 Desktop Printer High Cap Inks","Supplier A","182960",0,0,"other","","None","no","no",1,1949
+"2017-01-01","supplies","production material","195784","Supplier A","407519 x 1, TP-359R x 3, TP-8511R x 3, U4695 x1",0,0,"other","","None","no","no",1,97.11
+"2016-10-03","supplies","production material","TP-1117R x 1, TP-359R x 1,TP-8511R x 1","Supplier A","182969",0,0,"other","","None","no","no",1,58.07
+"2017-01-30","supplies","production material","TextPrint-R Sublimination Paper x 1","Supplier B","297702",0,0,"other","","None","no","no",1,23.1
+"2017-01-02","supplies","production tool","Clock movement for sample","Amazon","109-8202408-9213844",0,0,"other","","None","no","no",1,12.99
+"2016-11-28","supplies","production tool","Reflective and non-reflective display board etc","Amazon","109-0154033-1701828",4.54,0,"other","","None","no","no",1,55.08
+"2016-10-06","supplies","production tool","circle cutter, tape","Amazon","110-0607112-3423423",2.93,0,"other","","None","no","no",1,40.52
+"2016-06-17","supplies","production tool","Rubber bench block","Amazon","113-3104323-1805866",0,0,"other","","None","no","no",1,6.5
+"2016-11-26","supplies","production tool","weather shield container","Amazon","109-4684246-2136254",14.03,0,"other","","None","no","no",1,160.38
+"2016-01-30","supplies","production tool","rivet","Amazon","114-2192682-2585011",0,0,"other","","None","no","no",1,18.95
+"2016-01-23","supplies","production tool","Industrial plug","Amazon","114-4310638-4928258",3.84,0,"other","","None","no","no",1,43.96
+"2016-01-23","supplies","production tool","Plastic tubing","Amazon","114-5327775-7973032",0.47,0,"other","","None","no","no",1,5.4
+"2016-01-15","supplies","production tool","Plastic Rod","Amazon","114-4289595-3453868",0.31,0,"other","","None","no","no",1,3.56
+"2016-01-11","supplies","production tool","Measuring cylinder etc","Amazon","114-0764409-3102622",1.65,0,"other","","None","no","no",1,78.74
+"2016-01-08","supplies","production tool","Plastic cup","Amazon","105-0019742-5752279",0,0,"other","","None","no","no",1,8.94
+"2016-10-04","supplies","production tool","TS136 x 18","Supplier A","183013",0,13.87,"other","","None","no","no",1,23.4
+"2016-10-14","supplies","production tool","67702 x 1","Supplier A","2016-10-14",0,13.87,"other","","None","no","no",1,12.53
+"2016-10-10","supplies","production tool","3D-12: 11oz mug special clamp x 10,  pz-8: 8嚙踝蕭Plate fixture x 2","Supplier C","SMTE-K161010",0,0,"other","","None","no","no",1,30.4
+"2017-01-14","supplies","stationery","Battery for UPS","Amazon","104-6405343-2328255",0,12.06,"other","","None","no","no",1,31.98
+"2016-12-24","supplies","stationery","tape, tape dispenser etc","Amazon","109-8052374-8181049",1.08,0,"other","","None","no","no",1,36.12
+"2016-11-26","supplies","stationery","Anker quick charger","Amazon","109-7375364-9368215",2.68,0,"other","","None","no","no",1,30.59
+"2016-04-15","supplies","stationery","LED table lamp","Amazon","113-4263291-4437065",0,0,"other","","None","no","no",1,24.99
+"2016-04-12","supplies","stationery","LED table lamp","Amazon","113-2580810-3667431",0,0,"other","","None","no","no",1,24.99
+"2016-04-05","supplies","stationery","Windows 10","Amazon","113-4155157-1589037",0,0,"other","","None","no","no",1,219.98
+"2016-04-01","supplies","stationery","Phone to pc adaptor","Amazon","113-7986807-2889020",0,0,"other","","None","no","no",1,22.99
+"2016-01-12","supplies","stationery","glues","Amazon","109-9732489-0221804",0.54,0,"other","","None","no","no",1,6.18
