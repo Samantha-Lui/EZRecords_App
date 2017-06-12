@@ -114,6 +114,7 @@ process_upload_data <- function(data, append = TRUE,
       df <- data.frame(supplier_customer=ot@supplier_customer, 
                        model=o$model[i],  
                        category=o$category[i],
+                       descrp=o$descrp[i],
                        stringsAsFactors = FALSE)
       skeleton_other <- rbind(df, skeleton_other, stringsAsFactors = FALSE)
     }
