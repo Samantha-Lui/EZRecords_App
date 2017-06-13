@@ -31,7 +31,8 @@ Please visit https://samantheluidatascience.shinyapps.io/EZRecords_App_Demo/ for
 * Journal : Enter the data either by traditional data entry for the transaction at the respective panel or upload the data from the computer. 
     + Sale : A sale of goods to the customer 
     + Purchase : A purchase of goods from the manufacturer or distributor
-    + Other : Any transaction other than a sale or a purchase as defined above
+    + Other : Any transaction other than a sale or a purchase as defined above \*\*
+    fdytw
     + Upload from computer : A _comma_separated_value_ file (.csv) consisting of the following columns. Each row of the file represents an item in a transaction.
         + transac: The type of the transaction (\'sale\' for sale of the item, \'purchase\' for the purchase of a production material, and \'other\' for any         + type of transaction other than sale and purchase).*
         + date: The date of the transaction with format YYYY-MM-DD, MM/DD/YYYY, or MM/DD/YY.*
