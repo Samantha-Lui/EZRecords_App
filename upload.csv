@@ -1,0 +1,12 @@
+supplier_customer,mcat,model,transac,date,order_no,tax,shipment,discount,sample,sampling,category,quant,price,descrp
+Supplier B,Panel,9002,purchase,2017-03-30,123456,0,0,None,no,no,Triple-Hinged,10,11.15,"ChromaLuxe Hardboard Tri-Panel_5""x7""_gloss white"
+Supplier B,Panel,9079,purchase,2017-03-30,123456,0,0,None,no,no,Single,10,7.74,"ChromaLuxe  Aluminum Panel_5""x7""_gloss white"
+Supplier B,Panel,9066,purchase,2017-03-30,123456,0,0,None,no,no,Connection,10,7.74,"ChromaLuxe Connection Panel_6""x6"""
+Supplier A,Panel,7402,purchase,2017-02-01,999999,0,231.75,None,no,no,Display Set,4,4.8,Two-Piece MDF Shadow Display Set for ChromaLuxe Panels
+Supplier A,Panel,7426,purchase,2017-02-01,999999,0,231.75,None,no,no,Double-Hinged,20,7.96,"ChromaLuxe Flat-Top Double-Panels_3.5""x5"""
+Supplier A,Panel,7480,purchase,2017-02-01,999999,0,231.75,None,no,no,Single-Hinged,5,4.98,"ChromaLuxe Flat-Top Hardboard Single-Panel_3.5""x5"""
+Supplier A,Panel,7481,purchase,2017-02-01,999999,0,231.75,None,no,no,Single,3,8,"ChromaLuxe Flat-Top Hardboard Panel w/ Easel_6""x6"""
+Supplier A,Panel,7482,purchase,2017-02-01,999999,0,231.75,None,no,no,Single,3,10.7,"ChromaLuxe Flat-Top Hardboard Panel w/ Easel_10""x10"""
+Supplier D,Accessory,2007,purchase,2017-06-12,654321,8.9,12,None,no,no,Key-chain,10,2.3,ET-shape key chain
+Etsy,Panel,9002,sale,2017-04-23,abc17def0001,6.84,0,15%,no,no,Triple-Hinged,5,52.5,"ChromaLuxe Hardboard Tri-Panel_5""x7""_gloss white"
+Amazon,,stationary,purchase,2016-06-08,7JUDY-st321,1.33,0,None,no,no,supplies,1,15.46,"Tapes, bubble wraps, envelops"
